@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MiMo V2.6 Pro vs Flash · 3 倍差价，只买到 1–4 分</title>
+<style>
+:root{
+  --bg:#131519; --panel:#191c21; --panel-2:#1f232a; --line:#2c3138;
+  --text:#e8eaed; --muted:#8b929c; --hint:#5f6773;
+  --blue:#7aa2f7; --blue-deep:#4a7fd6;
+  --coral:#d85a30; --coral-light:#f0997b;
+  --ease-snap:cubic-bezier(.34,1.56,.64,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:"Geist","Outfit","Segoe UI","Microsoft YaHei",sans-serif;
+  line-height:1.6; overflow-x:hidden;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+h1,h2,h3{font-weight:500;letter-spacing:-.02em;line-height:1.15;}
+a{color:inherit;text-decoration:none;}
+button{font-family:inherit;cursor:pointer;}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;}
+
+/* ===== 斜切系统 ===== */
+.sk-btn{
+  display:inline-block;border:none;padding:10px 26px;font-size:14px;font-weight:500;
+  transform:rotate(-6deg);transition:transform .25s var(--ease-snap),background .2s;
+}
+.sk-btn:hover{transform:rotate(0deg) scale(1.04);}
+.sk-btn:active{transform:rotate(0deg) scale(.98);}
+.sk-btn.solid{background:var(--blue);color:#0d1016;}
+.sk-btn.solid-coral{background:var(--coral);color:#fff;}
+.sk-btn.ghost{background:none;color:var(--text);border:1px solid var(--line);}
+.sk-badge{
+  display:inline-block;padding:4px 14px;font-size:12px;font-weight:500;
+  transform:rotate(3deg);background:var(--blue);color:#0d1016;
+}
+.sk-badge.coral{background:var(--coral);color:#fff;}
+.sk-rule{height:3px;background:var(--blue);transform:rotate(-2deg);margin-left:-8px;}
+.sk-rule.coral{background:var(--coral);}
+.card{
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:26px 28px;
+  transition:transform .3s var(--ease-snap),border-color .2s;
+}
+.card:hover{transform:rotate(0deg) translateY(-4px);border-color:var(--muted);}
+.card.tilt-l{transform:rotate(-1.5deg);}
+.card.tilt-r{transform:rotate(1.5deg);}
+.band{background:var(--panel);transform:skewY(-2deg);margin:0 -40px;padding:0 40px;}
+.band>.band-in{transform:skewY(2deg);padding:76px 0;}
+.sec-num{
+  display:inline-block;background:var(--blue);color:#0d1016;font-weight:500;
+  padding:2px 14px;transform:rotate(-4deg);font-size:13px;margin-bottom:14px;
+}
+.sec-num.coral{background:var(--coral);color:#fff;}
+
+/* ===== Hero ===== */
+header{padding:88px 0 72px;position:relative;}
+.hero-top{display:flex;align-items:center;gap:18px;margin-bottom:26px;flex-wrap:wrap;}
+.hero-title{font-size:clamp(38px,6.2vw,76px);max-width:15ch;}
+.hero-title .mark{position:relative;display:inline-block;z-index:0;}
+.hero-title .mark::before{
+  content:"";position:absolute;z-index:-1;left:-10px;right:-10px;top:14%;bottom:8%;
+  background:var(--coral);transform:rotate(-2deg) skewX(-8deg);
+}
+.hero-sub{color:var(--muted);max-width:56ch;margin:28px 0 36px;font-size:16px;}
+.hero-actions{display:flex;gap:22px;align-items:center;flex-wrap:wrap;}
+.hero-corner{
+  position:absolute;right:-20px;top:60px;width:220px;height:150px;
+  background:repeating-linear-gradient(-45deg,var(--line) 0 3px,transparent 3px 12px);
+  transform:skewX(-14deg) rotate(4deg);pointer-events:none;
+}
+
+/* ===== 参数对决 ===== */
+.duel{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:34px;margin-top:44px;}
+.duel .card h3{font-size:24px;margin-bottom:4px;}
+.duel .role{color:var(--muted);font-size:13px;margin-bottom:20px;}
+.kv{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:14px;}
+.kv:last-child{border-bottom:none;}
+.kv .k{color:var(--muted);}
+.kv .v{font-weight:500;text-align:right;}
+.tag-pro{color:var(--blue);}
+.tag-flash{color:var(--coral-light);}
+.spec-table{width:100%;border-collapse:collapse;margin-top:48px;font-size:14px;}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:48px;}
+.table-scroll .spec-table{margin-top:0;min-width:560px;}
+.spec-table th,.spec-table td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--line);}
+.spec-table th{color:var(--muted);font-weight:500;font-size:12px;}
+.spec-table th:nth-child(2){color:var(--blue);}
+.spec-table th:nth-child(3){color:var(--coral-light);}
+.spec-table tr:hover td{background:var(--panel);}
+
+/* ===== 跑分 ===== */
+.bench-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:34px;}
+.toggles{display:flex;gap:14px;}
+.tg{
+  background:none;border:1px solid var(--line);color:var(--muted);
+  padding:8px 20px;font-size:13px;transform:rotate(-4deg);
+  transition:transform .25s var(--ease-snap),background .2s,color .2s,border-color .2s;
+}
+.tg:hover{transform:rotate(0deg);}
+.tg.on{background:var(--blue);color:#0d1016;border-color:var(--blue);transform:rotate(0deg);}
+.brow{margin-bottom:14px;padding-bottom:14px;border-bottom:1px dashed var(--line);}
+.brow:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none;}
+.bname .rank{font-family:ui-monospace,Consolas,monospace;color:var(--hint);font-size:12px;}
+.brow .bname{display:flex;align-items:baseline;gap:10px;font-size:14px;margin-bottom:6px;}
+.brow .delta{font-size:12px;padding:1px 8px;transform:rotate(2deg);display:inline-block;}
+.delta.pro-win{background:rgba(122,162,247,.15);color:var(--blue);}
+.delta.flash-win{background:rgba(216,91,48,.18);color:var(--coral-light);}
+.barline{display:flex;align-items:center;gap:10px;margin-bottom:4px;}
+.barline .who{width:44px;font-size:12px;color:var(--muted);}
+.barline .track{flex:1;height:10px;background:var(--panel);border:1px solid var(--line);overflow:hidden;}
+.barline .fill{
+  height:100%;transform:scaleX(0);transform-origin:left center;
+  transition:transform .9s var(--ease-out);
+}
+.reveal.in .fill{transform:scaleX(1);}
+.fill.p{background:var(--blue);}
+.fill.f{background:var(--coral);}
+.barline .num{width:44px;font-size:13px;font-weight:500;text-align:right;}
+.bench-note{color:var(--hint);font-size:12px;margin-top:8px;}
+
+/* ===== 价格 ===== */
+.price-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;margin-top:44px;align-items:start;}
+.calc{background:var(--panel-2);border:1px solid var(--line);border-radius:14px;padding:28px;transform:rotate(.8deg);}
+.calc:hover{transform:rotate(0deg);}
+.calc h3{font-size:18px;margin-bottom:20px;}
+.calc label{display:block;font-size:13px;color:var(--muted);margin:16px 0 6px;}
+.calc input[type=range]{width:100%;accent-color:var(--blue);}
+.calc .row{display:flex;justify-content:space-between;font-size:14px;padding:9px 0;border-bottom:1px dashed var(--line);}
+.calc .row:last-of-type{border-bottom:none;}
+.calc .save{
+  margin-top:18px;padding:12px 16px;background:rgba(216,91,48,.12);
+  border-left:3px solid var(--coral);font-size:14px;transform:rotate(-1deg);
+}
+.calc .save b{color:var(--coral-light);font-weight:500;}
+
+/* ===== 结论 ===== */
+.verdicts{display:grid;gap:26px;margin-top:44px;}
+.verdict{display:flex;gap:22px;align-items:flex-start;padding:24px 28px;background:var(--panel);border:1px solid var(--line);border-radius:14px;transition:transform .3s var(--ease-snap);}
+.verdict:nth-child(odd){transform:rotate(-.8deg);}
+.verdict:nth-child(even){transform:rotate(.8deg);}
+.verdict:hover{transform:rotate(0deg) translateX(6px);}
+.verdict .n{
+  flex:none;width:44px;height:44px;display:flex;align-items:center;justify-content:center;
+  background:var(--blue);color:#0d1016;font-size:18px;font-weight:500;transform:rotate(-6deg);
+}
+.verdict:nth-child(2) .n{background:var(--coral);color:#fff;}
+.verdict h3{font-size:17px;margin-bottom:6px;}
+.verdict p{color:var(--muted);font-size:14px;}
+footer{margin:90px 0 60px;color:var(--hint);font-size:12px;line-height:1.9;}
+footer .sk-rule{width:80px;margin-bottom:22px;}
+
+/* ===== 味道层：跑马灯 / 幽灵数字 / VS / 斜切数据条 ===== */
+.marquee{overflow:hidden;background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(-2deg) scale(1.05);margin:72px 0 24px;padding:13px 0;}
+.marquee .track{display:flex;gap:52px;white-space:nowrap;width:max-content;animation:mq 28s linear infinite;font-size:13px;letter-spacing:.14em;color:var(--muted);}
+.marquee .track b{color:var(--blue);font-weight:500;}
+.marquee .track i{color:var(--coral-light);font-style:normal;}
+@keyframes mq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.sec{position:relative;}
+.ghost-num{
+  position:absolute;right:-6px;top:18px;font-size:clamp(90px,14vw,190px);font-weight:500;line-height:1;
+  color:transparent;-webkit-text-stroke:1px var(--line);transform:rotate(-6deg);
+  pointer-events:none;user-select:none;z-index:0;
+}
+.sec-head{position:relative;z-index:1;}
+.duel{position:relative;}
+.vs{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-8deg);
+  font-size:42px;font-weight:500;letter-spacing:.02em;background:var(--bg);
+  border:1px solid var(--line);padding:8px 20px;z-index:2;transition:transform .3s var(--ease-snap);
+}
+.vs:hover{transform:translate(-50%,-50%) rotate(0deg) scale(1.08);}
+.hero-stat{display:flex;gap:20px;flex-wrap:wrap;margin-top:40px;}
+.hero-stat .stat{background:var(--panel);border:1px solid var(--line);padding:16px 28px 14px;transform:skewX(-8deg);min-width:180px;}
+.hero-stat .stat:nth-child(2){transform:skewX(8deg);}
+.hero-stat .stat:nth-child(3){transform:skewX(-8deg);}
+.hero-stat .sv{font-size:32px;font-weight:500;display:block;transform:skewX(8deg);font-variant-numeric:tabular-nums;}
+.hero-stat .stat:nth-child(2) .sv{transform:skewX(-8deg);}
+.hero-stat .sl{font-size:12px;color:var(--muted);display:block;transform:skewX(8deg);}
+.hero-stat .stat:nth-child(2) .sl{transform:skewX(-8deg);}
+.hero-in{animation:fadeUp .9s var(--ease-out) both;}
+.hero-in.d1{animation-delay:.08s;}
+.hero-in.d2{animation-delay:.2s;}
+.hero-in.d3{animation-delay:.34s;}
+.hero-in.d4{animation-delay:.48s;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px);}to{opacity:1;transform:none;}}
+.num{font-variant-numeric:tabular-nums;}
+
+/* ===== 密度与细节 ===== */
+h2::after{content:"";display:block;width:72px;height:3px;background:var(--coral);transform:skewX(-24deg);margin-top:16px;}
+.hero{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);gap:44px 56px;align-items:start;}
+.hero-stat{grid-column:1 / -1;}
+.hero-side{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:24px 26px;transform:rotate(1.2deg);position:relative;z-index:1;transition:transform .3s var(--ease-snap);}
+.hero-side:hover{transform:rotate(0deg);}
+.hero-side h3{font-size:17px;margin:0 0 14px;}
+.side-tag{display:inline-block;background:var(--coral);color:#fff;font-size:11px;padding:2px 10px;transform:rotate(-4deg) skewX(-8deg);margin-bottom:12px;}
+.side-kv{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:8px 0;border-bottom:1px dashed var(--line);}
+.side-kv:last-of-type{border-bottom:none;}
+.side-kv .v{font-weight:500;font-variant-numeric:tabular-nums;}
+.side-call{margin-top:14px;padding:11px 14px;background:rgba(122,162,247,.12);border-left:3px solid var(--blue);font-size:13px;transform:rotate(-1deg);}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;}
+.chip{font-size:12px;color:var(--muted);border:1px solid var(--line);background:var(--panel-2);padding:3px 12px;transform:skewX(-10deg);}
+.chip.hot{color:var(--coral-light);border-color:rgba(216,91,48,.45);}
+.chip.cool{color:var(--blue);border-color:rgba(122,162,247,.45);}
+.bench-sum{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;}
+.bench-box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 26px;transform:rotate(.4deg);transition:transform .3s var(--ease-snap);}
+.bench-box:hover{transform:rotate(0deg);}
+.spec-table tbody tr:nth-child(even) td{background:rgba(255,255,255,.02);}
+.cmp{margin-top:20px;}
+.cmp .cr{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:12px;}
+.cmp .cl{width:74px;color:var(--muted);}
+.cmp .cb{flex:1;height:8px;background:var(--bg);border:1px solid var(--line);overflow:hidden;}
+.cmp .cf{height:100%;transform:scaleX(0);transform-origin:left center;transition:transform .4s var(--ease-out);}
+.cmp .cf.f{background:var(--coral);}
+.cmp .cf.p{background:var(--blue);}
+.cmp .cf.u{background:var(--hint);}
+
+/* ===== 滚动揭示 ===== */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .6s var(--ease-out),transform .6s var(--ease-out);}
+.reveal.in{opacity:1;transform:none;}
+
+@media (max-width:860px){
+  .wrap{padding:0 20px;}
+  header{padding:56px 0 44px;}
+  .hero{grid-template-columns:1fr;gap:32px;}
+  .hero-title{font-size:clamp(30px,8vw,44px);}
+  .hero-side{transform:none;}
+  .hero-corner{display:none;}
+  .ghost-num,.vs{display:none;}
+  .price-grid{grid-template-columns:1fr;}
+  .card.tilt-l,.card.tilt-r,.verdict:nth-child(odd),.verdict:nth-child(even),.calc{transform:none;}
+  .card:hover,.verdict:hover{transform:translateY(-3px);}
+  .sk-btn,.tg{transform:rotate(-3deg);padding:12px 24px;}
+  .sk-btn:hover,.tg:hover{transform:rotate(-3deg) scale(1.03);}
+  .tg.on{transform:rotate(0deg);}
+  .hero-stat{gap:12px;}
+  .hero-stat .stat,.hero-stat .stat:nth-child(2),.hero-stat .stat:nth-child(3){transform:none;min-width:0;flex:1 1 140px;}
+  .hero-stat .sv,.hero-stat .sl,.hero-stat .stat:nth-child(2) .sv,.hero-stat .stat:nth-child(2) .sl{transform:none;}
+  .marquee{transform:rotate(-1deg) scale(1.02);margin-top:48px;}
+  .marquee .track{font-size:12px;gap:36px;}
+  .bench-box{transform:none;padding:16px 18px;}
+  .bench-head{margin-bottom:24px;}
+  .spec-table{font-size:13px;}
+  .spec-table th,.spec-table td{padding:10px 12px;}
+  .verdict{padding:20px 22px;gap:16px;}
+  .side-call,.calc .save{transform:none;}
+  .band{margin:0 -20px;padding:0 20px;}
+}
+@media (max-width:560px){
+  .hero-title{font-size:clamp(28px,8.5vw,36px);}
+  .hero-actions{gap:14px;}
+  .hero-stat .stat{flex:1 1 100%;}
+  .barline .who{width:38px;}
+  .barline .num{width:40px;font-size:12px;}
+  .barline .track{height:9px;}
+  .chips{gap:6px;}
+  .chip{font-size:11px;padding:2px 10px;}
+  .verdict{flex-direction:column;gap:12px;}
+  .bench-head h2{font-size:20px;}
+  .calc{padding:20px;}
+  footer{margin:64px 0 48px;}
+}
+@media (hover:none){
+  .card:hover,.verdict:hover,.hero-side:hover,.bench-box:hover,.calc:hover,.vs:hover{transform:none;}
+  .sk-btn:hover,.tg:hover{transform:rotate(-3deg) scale(1);}
+  .sk-btn:active{transform:scale(.97);}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *,*::before,*::after{transition:none!important;animation:none!important;}
+  .reveal{opacity:1;transform:none;}
+  .reveal .fill{transform:scaleX(1);}
+}
+</style>
+</head>
+<body>
+
+<header class="wrap hero">
+  <div class="hero-corner"></div>
+  <div class="hero-left">
+  <div class="hero-top hero-in d1">
+    <span class="sk-badge">2026-09-22 发布 · MIT 开源</span>
+    <span class="sk-badge coral">同门对决</span>
+  </div>
+  <h1 class="hero-title hero-in d2">3 倍差价，<br>只买到 <span class="mark">1–4 分</span></h1>
+  <p class="hero-sub hero-in d3">MiMo V2.6 Pro 与 Flash 同天发布、同为 MIT 开源权重、同为 1M 上下文。旗舰贵 3.1 倍，官方跑分只领先 1–4 分，还有一项被反超。这一页把参数、跑分、价格全摊开，告诉你钱该花在哪。</p>
+  <div class="hero-actions hero-in d3">
+    <a class="sk-btn solid" href="#bench">看跑分</a>
+    <a class="sk-btn ghost" href="#price">算价格</a>
+    <a class="sk-btn solid-coral" href="#verdict">直接看结论</a>
+  </div>
+  </div>
+  <aside class="hero-side hero-in d3">
+    <div class="side-tag">TL;DR</div>
+    <h3>对决速览</h3>
+    <div class="side-kv"><span>总参数</span><span class="v">1.02T vs 309B</span></div>
+    <div class="side-kv"><span>激活参数</span><span class="v">42B vs 15B</span></div>
+    <div class="side-kv"><span>平均分差</span><span class="v">1.7 分</span></div>
+    <div class="side-kv"><span>最大分差</span><span class="v">4.0（DeepSWE）</span></div>
+    <div class="side-kv"><span>反超项</span><span class="v">CyberGym</span></div>
+    <div class="side-call">高频调用选 Flash，高风险长程选 Pro</div>
+  </aside>
+  <div class="hero-stat hero-in d4">
+    <div class="stat"><span class="sv"><span data-t="3.1" data-dec="1">0.0</span>×</span><span class="sl">Pro / Flash 价格差</span></div>
+    <div class="stat"><span class="sv"><span data-t="46.32" data-dec="2">0.00</span></span><span class="sl">Pro 独立评分 · 开源第一</span></div>
+    <div class="stat"><span class="sv"><span data-t="10" data-dec="0">0</span></span><span class="sl">项官方跑分对位</span></div>
+  </div>
+</header>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span>MIMO V2.6 <b>PRO</b> vs <i>FLASH</i> — 1.02T vs 309B — MIT OPEN WEIGHTS — 1M CONTEXT — RELEASED 2026.09.22 — 3.1× PRICE GAP — </span>
+    <span>MIMO V2.6 <b>PRO</b> vs <i>FLASH</i> — 1.02T vs 309B — MIT OPEN WEIGHTS — 1M CONTEXT — RELEASED 2026.09.22 — 3.1× PRICE GAP — </span>
+  </div>
+</div>
+
+<section class="band">
+  <div class="band-in wrap sec">
+    <div class="ghost-num" aria-hidden="true">01</div>
+    <div class="reveal">
+      <span class="sec-num">01 / 参数</span>
+      <h2>一个旗舰，一个主力，架构同源</h2>
+    </div>
+    <div class="duel">
+      <div class="vs" aria-hidden="true">VS</div>
+      <div class="card tilt-l reveal">
+        <h3 class="tag-pro">MiMo V2.6 Pro</h3>
+        <p class="role">复杂项目 · 长程 agent · 科研与安全</p>
+        <div class="kv"><span class="k">总参数</span><span class="v">1.02T</span></div>
+        <div class="kv"><span class="k">激活参数</span><span class="v">42B / token</span></div>
+        <div class="kv"><span class="k">上下文</span><span class="v">1M tokens</span></div>
+        <div class="kv"><span class="k">最大输出</span><span class="v">128K tokens</span></div>
+        <div class="kv"><span class="k">模态</span><span class="v">文 / 图 / 视频 / 音频</span></div>
+        <div class="kv"><span class="k">独立评分</span><span class="v">AA 46.32 · 开源第一</span></div>
+        <div class="chips"><span class="chip cool">旗舰</span><span class="chip">RL 成本 $2.62M</span><span class="chip">约 125 tok/s</span><span class="chip">384 选 8 专家</span></div>
+      </div>
+      <div class="card tilt-r reveal">
+        <h3 class="tag-flash">MiMo V2.6 Flash</h3>
+        <p class="role">高频调用 · 低成本生产主力</p>
+        <div class="kv"><span class="k">总参数</span><span class="v">309B</span></div>
+        <div class="kv"><span class="k">激活参数</span><span class="v">15B / token</span></div>
+        <div class="kv"><span class="k">上下文</span><span class="v">1M tokens</span></div>
+        <div class="kv"><span class="k">最大输出</span><span class="v">128K tokens</span></div>
+        <div class="kv"><span class="k">模态</span><span class="v">文 / 图 / 视频 / 音频</span></div>
+        <div class="kv"><span class="k">独立评分</span><span class="v">暂无第三方评分</span></div>
+        <div class="chips"><span class="chip hot">性价比</span><span class="chip">RL 成本 $0.85M</span><span class="chip">约 280 tok/s</span><span class="chip">256 选 8 专家</span></div>
+      </div>
+    </div>
+
+    <div class="table-scroll">
+    <table class="spec-table reveal">
+      <thead>
+        <tr><th>规格</th><th>Pro</th><th>Flash</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>架构</td><td>稀疏 MoE + 双流推测路由</td><td>稀疏 MoE + 5 层 MTP 投机解码</td></tr>
+        <tr><td>Transformer 层</td><td>70 层（60 滑窗 + 10 全局）</td><td>48 层（39 滑窗 + 9 全局）</td></tr>
+        <tr><td>路由专家</td><td>384 选 8</td><td>256 选 8（无共享专家）</td></tr>
+        <tr><td>多模态组件</td><td>681M 视觉编码器 + 音频编码器</td><td>681M 视觉 + 308M 音频 tokenizer + 127M 音频 patch 编码器</td></tr>
+        <tr><td>吞吐（参考）</td><td>约 125 tok/s</td><td>约 280 tok/s</td></tr>
+        <tr><td>许可证</td><td>MIT · 权重无门槛</td><td>MIT · 权重无门槛</td></tr>
+        <tr><td>权重</td><td>XiaomiMiMo/MiMo-V2.6-Pro-RL</td><td>XiaomiMiMo/MiMo-V2.6-Flash-RL</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<section class="wrap sec" id="bench" style="padding-top:72px;">
+  <div class="ghost-num" aria-hidden="true">02</div>
+  <div class="bench-head reveal">
+    <div>
+      <span class="sec-num">02 / 跑分</span>
+      <h2>10 项官方跑分，差距比你想的小</h2>
+    </div>
+    <div class="toggles" role="group" aria-label="跑分排序方式">
+      <button class="tg on" id="tgOrder">官方顺序</button>
+      <button class="tg" id="tgGap">按分差排序</button>
+    </div>
+  </div>
+  <div class="bench-sum">
+    <span class="chip cool">均分 Pro 74.6</span>
+    <span class="chip hot">Flash 72.8</span>
+    <span class="chip">平均差 1.7 分</span>
+    <span class="chip">最大差 4.0（DeepSWE）</span>
+    <span class="chip">Flash 反超 1 项</span>
+  </div>
+  <div class="bench-box"><div id="benchRows"></div></div>
+  <p class="bench-note">数据为小米官方 model card 自报（Table 3）。10 项中 Flash 在 CyberGym 反超 1.1 分，其余落后 0.8–4.0 分。另有第三方独立评分：Artificial Analysis Intelligence Index v4.3.2，Pro 得 46.32，为当前开源模型最高，Flash 未发布独立评分。</p>
+</section>
+
+<section class="band" id="price" style="margin-top:96px;">
+  <div class="band-in wrap sec">
+    <div class="ghost-num" aria-hidden="true">03</div>
+    <div class="reveal">
+      <span class="sec-num coral">03 / 价格</span>
+      <h2>差价 3.1 倍，缓存命中近乎免费</h2>
+    </div>
+    <div class="price-grid">
+      <div class="reveal">
+        <div class="table-scroll" style="margin-top:0;">
+        <table class="spec-table" style="margin-top:0;">
+          <thead>
+            <tr><th>每百万 tokens</th><th>输入</th><th>缓存命中</th><th>输出</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="tag-flash">Flash</td><td>$0.14</td><td>$0.0028</td><td>$0.28</td></tr>
+            <tr><td class="tag-pro">Pro</td><td>$0.435</td><td>$0.0036</td><td>$0.87</td></tr>
+            <tr><td>Pro-UltraSpeed<br><span style="color:var(--hint);font-size:12px;">20 倍速推理</span></td><td>$4.35</td><td>$0.036</td><td>$8.70</td></tr>
+          </tbody>
+        </table>
+        </div>
+        <p class="bench-note" style="margin-top:14px;">两个模型还有 9B 蒸馏版（MiMo-V2.6-Distill-Qwen-9B）可本地部署，同样 MIT。</p>
+        <div class="chips"><span class="chip">缓存命中约等于白送</span><span class="chip">UltraSpeed = 20× 速</span><span class="chip">9B 蒸馏版可本地跑</span><span class="chip">权重无门槛下载</span></div>
+      </div>
+
+      <div class="calc reveal">
+        <h3>月成本速算</h3>
+        <label for="inTok">每月输入： <b id="inVal" style="color:var(--text);">100</b> 百万 tokens</label>
+        <input type="range" id="inTok" min="0" max="500" value="100" step="10">
+        <label for="outTok">每月输出： <b id="outVal" style="color:var(--text);">30</b> 百万 tokens</label>
+        <input type="range" id="outTok" min="0" max="200" value="30" step="5">
+        <div style="margin-top:22px;">
+          <div class="row"><span class="tag-flash">Flash</span><span id="costF">$0</span></div>
+          <div class="row"><span class="tag-pro">Pro</span><span id="costP">$0</span></div>
+          <div class="row"><span style="color:var(--muted);">Pro-UltraSpeed</span><span id="costU">$0</span></div>
+        </div>
+        <div class="save">选 Flash 每月省 <b id="saveVal">$0</b>，差价 <b id="ratioVal">3.1×</b></div>
+        <div class="cmp" aria-hidden="true">
+          <div class="cr"><span class="cl">Flash</span><div class="cb"><div class="cf f" id="barF"></div></div></div>
+          <div class="cr"><span class="cl">Pro</span><div class="cb"><div class="cf p" id="barP"></div></div></div>
+          <div class="cr"><span class="cl">UltraSpeed</span><div class="cb"><div class="cf u" id="barU"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap sec" id="verdict" style="padding-top:72px;">
+  <div class="ghost-num" aria-hidden="true">04</div>
+  <div class="reveal">
+    <span class="sec-num coral">04 / 结论</span>
+    <h2>所以，买哪个</h2>
+  </div>
+  <div class="verdicts">
+    <div class="verdict reveal">
+      <div class="n">1</div>
+      <div>
+        <h3>高风险长程任务选 Pro</h3>
+        <p>DeepSWE 的 4 分、Toolathlon 的 3.3 分，在"任务成与败"的边界上是质变。科研、安全、复杂工程 agent 多花 3 倍钱便宜。</p>
+        <div class="chips"><span class="chip cool">DeepSWE +4.0</span><span class="chip cool">Toolathlon +3.3</span><span class="chip cool">Terminal-Bench +2.3</span></div>
+      </div>
+    </div>
+    <div class="verdict reveal">
+      <div class="n">2</div>
+      <div>
+        <h3>高频生产调用选 Flash</h3>
+        <p>三分之一价格拿到 95% 以上的分数，吞吐还快一倍多，CyberGym 甚至反超旗舰。生产主力没什么好犹豫的。</p>
+        <div class="chips"><span class="chip hot">1/3 价格</span><span class="chip hot">CyberGym 反超 +1.1</span><span class="chip hot">吞吐约 2.2 倍</span></div>
+      </div>
+    </div>
+    <div class="verdict reveal">
+      <div class="n">3</div>
+      <div>
+        <h3>看清醒一点：跑分多数是自报</h3>
+        <p>目前只有 Pro 有第三方独立评分（AA 46.32，开源第一）。"Flash 接近旗舰"仍是官方口径，上线前用自己的真实任务测一轮，比任何榜单都准。</p>
+        <div class="chips"><span class="chip">AA 46.32 · 仅 Pro</span><span class="chip">Flash 暂无第三方</span><span class="chip">上线前自测一轮</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div class="sk-rule coral"></div>
+  <p>数据来源：小米官方 model card 与技术报告（2026-09-22 发布）、Artificial Analysis Intelligence Index v4.3.2、GIGAZINE / OrcaRouter / BuildFastWithAI / Data Studios / Vantaige 公开报道。</p>
+  <p>除标注「独立评分」外，所有跑分均为小米官方自报。价格为官方 API 标价（美元 / 每百万 tokens）。检索日期 2026-09-24。</p>
+</footer>
+
+<script>
+const BENCH=[
+  ["DeepSWE v1.1",71.9,67.9],
+  ["MiMo Code Bench",63.2,61.2],
+  ["AutomationBench v1.0.6",53.1,52.3],
+  ["Toolathlon-Verified",76.9,73.6],
+  ["Terminal-Bench 2.1",89.9,87.6],
+  ["OSWorld-Verified",82.0,80.8],
+  ["JobBench",62.0,61.2],
+  ["MiMo Visual Coding",72.3,71.5],
+  ["CyberGym",94.0,95.1],
+  ["MiMo Cyber Bench",80.2,77.2]
+];
+const rowsEl=document.getElementById('benchRows');
+function renderRows(list){
+  rowsEl.innerHTML=list.map(([n,p,f],i)=>{
+    const d=+(p-f).toFixed(1);
+    const win=d>=0?'pro-win':'flash-win';
+    const dtxt=d>=0?('Pro +'+d.toFixed(1)):('Flash +'+Math.abs(d).toFixed(1));
+    return `<div class="brow reveal">
+      <div class="bname"><span class="rank">${String(i+1).padStart(2,'0')}</span><span>${n}</span><span class="delta ${win}">${dtxt}</span></div>
+      <div class="barline"><span class="who">Pro</span><div class="track"><div class="fill p" style="width:${p}%"></div></div><span class="num" data-t="${p}" data-dec="1">0.0</span></div>
+      <div class="barline"><span class="who">Flash</span><div class="track"><div class="fill f" style="width:${f}%"></div></div><span class="num" data-t="${f}" data-dec="1">0.0</span></div>
+    </div>`;
+  }).join('');
+  observeAll();
+}
+let order='official';
+function applyOrder(){
+  const list=BENCH.map((b,i)=>[...b,i]);
+  if(order==='gap') list.sort((a,b)=>Math.abs(b[1]-b[2])-Math.abs(a[1]-a[2]));
+  else list.sort((a,b)=>a[3]-b[3]);
+  renderRows(list.map(b=>[b[0],b[1],b[2]]));
+}
+document.getElementById('tgOrder').addEventListener('click',()=>{
+  order='official';
+  document.getElementById('tgOrder').classList.add('on');
+  document.getElementById('tgGap').classList.remove('on');
+  applyOrder();
+});
+document.getElementById('tgGap').addEventListener('click',()=>{
+  order='gap';
+  document.getElementById('tgGap').classList.add('on');
+  document.getElementById('tgOrder').classList.remove('on');
+  applyOrder();
+});
+
+const PRICE={f:[0.14,0.28],p:[0.435,0.87],u:[4.35,8.7]};
+const fmt=n=>'$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+function calc(){
+  const i=+document.getElementById('inTok').value;
+  const o=+document.getElementById('outTok').value;
+  document.getElementById('inVal').textContent=i;
+  document.getElementById('outVal').textContent=o;
+  const cost=k=>i*PRICE[k][0]+o*PRICE[k][1];
+  const cf=cost('f'),cp=cost('p');
+  document.getElementById('costF').textContent=fmt(cf);
+  document.getElementById('costP').textContent=fmt(cp);
+  document.getElementById('costU').textContent=fmt(cost('u'));
+  document.getElementById('saveVal').textContent=fmt(Math.max(0,cp-cf));
+  document.getElementById('ratioVal').textContent=cf>0?(cp/cf).toFixed(1)+'×':'—';
+  const cu=cost('u'), mx=Math.max(cf,cp,cu,1);
+  document.getElementById('barF').style.transform='scaleX('+(cf/mx)+')';
+  document.getElementById('barP').style.transform='scaleX('+(cp/mx)+')';
+  document.getElementById('barU').style.transform='scaleX('+(cu/mx)+')';
+}
+document.getElementById('inTok').addEventListener('input',calc);
+document.getElementById('outTok').addEventListener('input',calc);
+calc();
+
+const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function countUp(el){
+  const t=parseFloat(el.dataset.t||'0'), dec=+(el.dataset.dec||'1');
+  if(reduceMotion){el.textContent=t.toFixed(dec);return;}
+  const t0=performance.now(), dur=750;
+  function step(now){
+    const k=Math.min(1,(now-t0)/dur), e=1-Math.pow(1-k,3);
+    el.textContent=(t*e).toFixed(dec);
+    if(k<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+function countAll(root){(root||document).querySelectorAll('[data-t]').forEach(countUp);}
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('in');
+      countAll(e.target);
+      io.unobserve(e.target);
+    }
+  });
+},{threshold:.15});
+function observeAll(){
+  document.querySelectorAll('.reveal:not(.in)').forEach(el=>{
+    const idx=Array.prototype.indexOf.call(el.parentElement.children,el);
+    el.style.transitionDelay=Math.min(idx,5)*70+'ms';
+    io.observe(el);
+  });
+}
+applyOrder();
+observeAll();
+document.querySelectorAll('.hero-stat [data-t]').forEach(countUp);
+
+if(!reduceMotion && matchMedia('(pointer: fine)').matches){
+  document.querySelectorAll('.duel .card, .calc').forEach(card=>{
+    const base=card.classList.contains('calc')?0.8:(card.classList.contains('tilt-r')?1.5:-1.5);
+    card.addEventListener('pointermove',ev=>{
+      const r=card.getBoundingClientRect();
+      const x=(ev.clientX-r.left)/r.width-.5, y=(ev.clientY-r.top)/r.height-.5;
+      card.style.transform=`perspective(900px) rotateX(${(-y*4).toFixed(2)}deg) rotateY(${(x*5).toFixed(2)}deg) rotate(${base}deg)`;
+    });
+    card.addEventListener('pointerleave',()=>{card.style.transform='';});
+  });
+}
+</script>
+</body>
+</html>
