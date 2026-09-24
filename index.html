@@ -51,7 +51,7 @@ button{font-family:inherit;cursor:pointer;}
 .card.tilt-l{transform:rotate(-1.5deg);}
 .card.tilt-r{transform:rotate(1.5deg);}
 .band{background:var(--panel);transform:skewY(-2deg);margin:0 -40px;padding:0 40px;}
-.band>.band-in{transform:skewY(2deg);padding:76px 0;}
+.band>.band-in{transform:skewY(2deg);padding-top:76px;padding-bottom:76px;}
 .sec-num{
   display:inline-block;background:var(--blue);color:#0d1016;font-weight:500;
   padding:2px 14px;transform:rotate(-4deg);font-size:13px;margin-bottom:14px;
@@ -251,6 +251,9 @@ h2::after{content:"";display:block;width:72px;height:3px;background:var(--coral)
   .spec-table th,.spec-table td{padding:10px 12px;}
   .verdict{padding:20px 22px;gap:16px;}
   .side-call,.calc .save{transform:none;}
+  .calc input[type=range]{-webkit-appearance:none;appearance:none;height:36px;background:transparent;}
+  .calc input[type=range]::-webkit-slider-runnable-track{height:8px;background:var(--panel-2);border:1px solid var(--line);border-radius:6px;}
+  .calc input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;margin-top:-11px;border-radius:50%;background:var(--blue);border:2px solid var(--bg);}
   .scroll-hint{display:block;}
   .band{margin:0 -20px;padding:0 20px;}
 }
